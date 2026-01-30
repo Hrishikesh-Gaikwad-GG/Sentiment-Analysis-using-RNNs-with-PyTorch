@@ -97,6 +97,3 @@ The trained BiLSTM model supports inference on custom text input.
 - **BiLSTM achieves the best overall performance** by leveraging bidirectional context
 - Proper regularisation and ROC-based evaluation improve robustness
 
-
-   ```bash
-   git clone https://github.com/your-username/your-repo-name.git
