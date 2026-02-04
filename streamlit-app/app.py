@@ -5,6 +5,10 @@ import re
 import numpy as np
 import config
 from sample_review import EXAMPLE_REVIEWS
+from pathlib import Path
+
+BASE_DIR  = Path(__file__).resolve().parent
+MODEL_DIR = BASE_DIR / 'models'
 
 # ---------------- CONFIG ----------------
 # DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -56,7 +60,7 @@ class BiLSTMModel(nn.Module):
 # ---------------- LOAD MODEL & VOCAB ----------------
 @st.cache_resource
 def load_model():
-    with open("vocab.pkl", "rb") as f:
+    with open(MODEL_DIR/'vocab.pkl', "rb") as f:
         word2idx = pickle.load(f)
 
     model = BiLSTMModel(
@@ -64,7 +68,7 @@ def load_model():
         embed_dim = config.EMBED_DIM,
         hidden_dim=config.HIDDEN_DIM
         )
-    model.load_state_dict(torch.load(config.MODEL_PATH, map_location=DEVICE))
+    model.load_state_dict(torch.load(MODEL_DIR/'model.pth', map_location=DEVICE))
     model.to(DEVICE)
     model.eval()
 
