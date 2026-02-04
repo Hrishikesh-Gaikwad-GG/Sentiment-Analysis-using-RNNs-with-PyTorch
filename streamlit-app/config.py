@@ -1,0 +1,6 @@
+MAX_LEN = 300
+EMBED_DIM = 128
+HIDDEN_DIM = 128
+BEST_THRESHOLD = 0.77
+MODEL_PATH = "model.pth"
+VOCAB_PATH = "vocab.pkl"
