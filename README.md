@@ -1,98 +1,137 @@
-# IMDb Sentiment Analysis with PyTorch RNNs
+# IMDb Sentiment Analysis with PyTorch (Streamlit App)
 
-This project explores **sentiment analysis on IMDb movie reviews** using various **recurrent neural network (RNN) architectures** implemented in **PyTorch**.  
-The goal is to classify movie reviews as **positive** or **negative** and systematically compare different RNN-based models.
+An end-to-end **sentiment analysis web application** built with **PyTorch** and deployed on **Streamlit Cloud**.  
+The app predicts whether an IMDb movie review is **Positive** or **Negative** and allows users to interactively test the model with custom and example inputs.
+
+---
+
+## 🚀 Live Demo
+
+👉 **Streamlit App:**  
+https://sentiment-analysis-using-rnns-with-pytorch.streamlit.app/
+
+Features available in the app:
+- Custom review input
+- Predefined example reviews (positive, negative, sarcastic, mixed)
+- Sentiment prediction with confidence score
+- Clean, user-friendly interface
 
 ---
 
 ## 📌 Project Overview
 
-- **Task**: Binary sentiment classification (Positive / Negative)
-- **Dataset**: IMDb Movie Reviews (50,000 reviews)
-- **Framework**: PyTorch
-- **Problem Type**: Many-to-one sequence classification
+- **Task:** Binary sentiment classification  
+- **Dataset:** IMDb Movie Reviews  
+- **Framework:** PyTorch  
+- **Deployment:** Streamlit Cloud  
+- **Model Used:** Bidirectional LSTM (BiLSTM)
 
-The project focuses on understanding how different recurrent architectures handle long textual sequences and how evaluation strategies affect model performance.
-
----
-
-## 🧠 Models Implemented
-
-The following models were trained and compared using the same preprocessing pipeline and data splits:
-
-- Simple RNN (baseline)
-- LSTM (Long Short-Term Memory)
-- GRU (Gated Recurrent Unit)
-- Bidirectional LSTM (BiLSTM)
-
-The **BiLSTM** model was selected as the final model due to its superior performance.
+The project demonstrates a complete workflow from model training to real-world deployment.
 
 ---
 
-## 🗂 Dataset Details
+## 🧠 Model Summary (Brief)
 
-- **Total samples**: 50,000
-- **Training samples**: 25,000
-- **Test samples**: 25,000
-- **Classes**: Positive, Negative
-- **Class balance**: Balanced (50/50)
+Multiple recurrent architectures were explored during experimentation:
+- Simple RNN
+- LSTM
+- GRU
+- **Bidirectional LSTM (final model)**
 
-The dataset contains long, variable-length reviews, making it well-suited for evaluating sequence models.
-
----
-
-## ⚙️ Preprocessing Pipeline
-
-- Lowercasing text
-- Removing HTML tags
-- Tokenisation using a custom vocabulary
-- Padding and truncation to fixed sequence length
-- `<PAD>` and `<OOV>` token handling
-
-The same preprocessing pipeline is applied consistently across all models and during inference.
+The **BiLSTM** was selected for deployment as it provided the best overall performance by leveraging both past and future context in text.
 
 ---
 
-## 🛡 Regularization Techniques
+## ⚙️ Preprocessing (High Level)
 
-To mitigate overfitting, especially in LSTM-based models, the following techniques were applied:
+- Text lowercasing and HTML removal
+- Tokenization with a custom vocabulary
+- Handling of `<PAD>` and `<OOV>` tokens
+- Fixed-length padding and truncation
 
-- Dropout after the embedding layer
-- Dropout in recurrent layers
-- Dropout before classification layer
-- Weight decay (L2 regularisation)
-
----
-
-## 📊 Evaluation Strategy
-
-### During Training
-- Loss: Binary Cross-Entropy
-- Metric: Accuracy (threshold = 0.5)
-
-### Final Evaluation (BiLSTM)
-- **ROC–AUC** for threshold-independent evaluation
-- Optimal threshold selection using ROC analysis
-- **Confusion Matrix** for error analysis
-
-ROC–AUC was preferred over accuracy alone to better assess ranking performance.
+The same preprocessing pipeline is used during both training and inference.
 
 ---
 
-## 🧪 Inference on Custom Input
+## 📊 Evaluation (High Level)
 
-The trained BiLSTM model supports inference on custom text input.
-
-- Uses the same preprocessing and vocabulary as training
-- Outputs sentiment label and confidence score
-- Demonstrates real-world usability
+- Accuracy used during training for monitoring
+- ROC-AUC used for final model evaluation
+- Optimal threshold selection based on ROC analysis
+- Confusion matrix for error inspection
 
 ---
 
-## 🏆 Key Results
+## 🧪 Streamlit App Highlights
 
-- Simple RNN struggles with long-term dependencies
-- LSTM and GRU significantly outperform Simple RNN
-- GRU offers a strong balance between speed and accuracy
-- **BiLSTM achieves the best overall performance** by leveraging bidirectional context
-- Proper regularisation and ROC-based evaluation improve robustness
+- Real-time inference using trained BiLSTM
+- Confidence score for each prediction
+- Example buttons for quick testing
+- Includes sarcastic and mixed reviews to show model behavior
+- CPU-only deployment (lightweight and cloud-friendly)
+
+---
+## 🗂 Project Structure
+```markdown
+project/
+├── streamlit-app/
+│   ├── app.py              # Streamlit application
+│   ├── config.py           # Central configuration
+│   ├── sample_reviews.py   # Example & sarcastic reviews
+|   ├── requirements.txt
+│   └── models/
+│       ├── model.pth       # Trained BiLSTM weights
+│       └── vocab.pkl       # Vocabulary mapping
+├── notebook.ipynb          # Training & experimentation
+└── README.md
+
+
+```
+---
+## 🛠 Setup Instructions (Local)
+
+### 1️⃣ Clone the repository
+```bash
+git clone https://github.com/Hrishikesh-Gaikwad-GG/Sentiment-Analysis-using-RNNs-with-PyTorch.git
+cd Sentiment-Analysis-using-RNNs-with-PyTorch
+```
+
+### 2️⃣ Create and activate virtual environment (optional)
+```bash
+python -m venv venv
+source venv/bin/activate   # Linux / Mac
+venv\Scripts\activate      # Windows
+
+```
+### 3️⃣ Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 4️⃣ Run the Streamlit app
+```bash
+streamlit run app.py
+```
+🛠 Tech Stack
+
+- Python
+- PyTorch
+- Streamlit
+- NumPy
+- pandas
+- scikit-learn
+- matplotlib
+- seaborn
+
+🧠 Key Takeaways
+
+- Gated RNNs significantly outperform Simple RNNs
+- GRU offers a strong speed–accuracy trade-off
+- BiLSTM performs best for this task
+- Sarcastic reviews remain challenging for sequence models
+- Streamlit enables fast and effective ML deployment
+
+👤 Author
+
+Hrishikesh Gaikwad | 
+AI & Machine Learning Enthusiast
